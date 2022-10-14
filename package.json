@@ -1,0 +1,38 @@
+{
+  "name": "denseparser",
+  "version": "1.0.0",
+  "description": "Dense.js JSON-HTML parser script",
+  "main": "./dist/parser.cjs.js",
+  "module": "./dist/parser.es.js",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c rollup.config.js && rollup -c rollup.config.umd.js",
+    "watch": "rollup -wc rollup.config.js && rollup -wc rollup.config.umd.js",
+    "prepare": "eslint ./src/parser.js && prettier --write ./src/parser.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shadichy/dense-parser.git"
+  },
+  "keywords": [
+    "dense",
+    "parser"
+  ],
+  "author": "Shadichy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shadichy/dense-parser/issues"
+  },
+  "homepage": "https://github.com/shadichy/dense-parser#readme",
+  "dependencies": {
+    "emmet": "^2.3.6"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "emmet": "^2.3.6",
+    "eslint": "^8.25.0",
+    "rollup": "^3.1.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "prettier": "^2.7.1"
+  }
+}

@@ -1,0 +1,92 @@
+{
+    "title": "Dense.js",
+    "desc": "A simple Dense.js JSON-HTML template",
+    "logo": "/path/to/logo.png",
+    "preview": "/path/to/preview.png",
+    "type": "website",
+    "lang": "vi",
+    "keywords": ["densejs", "dense", "densejson"],
+    "style": {
+        "design": "glassmorphism"
+    },
+    "stylesheet": [
+        "/path/to/style.css",
+        {
+            "#nav": {
+                "display": "block",
+                "overflow": "hidden"
+            },
+            ".notnav": "display:block"
+        },
+        ".lmao {display: block}"
+    ],
+    "script": "/path/to/script.js",
+    "_": {
+        "panel": {
+            "id": "nav",
+            "style": {
+                "size": 4,
+                "centerChild": true
+            },
+            "_": [
+                "img[src='/path/to/logo.png']",
+                "h1{Dense.js}",
+                {
+                    "style": {
+                        "size": 1
+                    },
+                    "_": [
+                        "a[href='#']>label{HOME}",
+                        "a[href='#']>label{ABOUT}",
+                        "a[href='#']>label{DOWNLOAD}",
+                        "a[href='#']>label{JOIN US}"
+                    ]
+                }
+            ]
+        },
+        "header": {
+            "style": {
+                "type": "fullbox"
+            },
+            "_": [
+                {
+                    "class": ["denseHeader", "denseText"],
+                    "_": [
+                        "h1{START YOUR FIRST DENSE.JS PROJECT}",
+                        "p{Build your website without the use of HTML! It's just JSON!}",
+                        {
+                            "tag": "a",
+                            "href": "#",
+                            "style": {
+                                "border-radius": "full",
+                                "background-color": "green"
+                            },
+                            "_": "Let's get started"
+                        }
+                    ]
+                }
+            ]
+        },
+        "_": {
+            "style": {
+                "size": 4
+            },
+            "_": [
+                {
+                    "_": "div"
+                }
+            ]
+        },
+        "footer": {
+            "style": {
+                "size": 4,
+                "type": "widebox"
+            },
+            "_": [
+                {
+                    "_": "div"
+                }
+            ]
+        }
+    }
+}
