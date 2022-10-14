@@ -1,13 +1,12 @@
 {
-  "name": "denseparser",
+  "name": "dense-parser",
   "version": "1.0.0",
   "description": "Dense.js JSON-HTML parser script",
   "main": "./dist/parser.cjs.js",
   "module": "./dist/parser.es.js",
-  "type": "module",
   "scripts": {
-    "build": "rollup -c rollup.config.js && rollup -c rollup.config.umd.js",
-    "watch": "rollup -wc rollup.config.js && rollup -wc rollup.config.umd.js",
+    "build": "rollup -c rollup.config.mjs && rollup -c rollup.config.umd.mjs",
+    "watch": "rollup -wc rollup.config.mjs && rollup -wc rollup.config.umd.mjs",
     "prepare": "eslint ./src/parser.js && prettier --write ./src/parser.js"
   },
   "repository": {
@@ -34,5 +33,8 @@
     "rollup": "^3.1.0",
     "rollup-plugin-terser": "^7.0.2",
     "prettier": "^2.7.1"
+  },
+  "directories": {
+    "example": "example"
   }
 }

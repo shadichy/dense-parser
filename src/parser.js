@@ -60,7 +60,10 @@ const voidElements = [
 	"wbr",
 ]
 
-const isArray = (o) => Object.prototype.toString.call(o) === "[object Array]"
+var isDense = false
+
+const isArray = (o) => Object.prototype.toString.call(o) === "[object Array]",
+	useDense = ()=>isDense=true
 
 function parseElement(content, _tag = "div") {
 	if (typeof content === "string")
@@ -160,31 +163,33 @@ function parseCss(style, isBody) {
 	let classlist = [],
 		css = ""
 
-	if (!isBody) {
-		if (!style.size) style.size = 1
-		if (!style.type) style.type = "box"
-	}
-
-	Object.keys(style).forEach((k) => {
-		switch (k) {
-			case "design":
-				classlist.push(style[k])
-				break
-			case "type":
-				classlist.push(style[k] + style.size)
-				break
-			case "centerChild":
-				break
-			case "border-radius":
-				css += `${k}:${style[k] == "full" ? "100vw" : style[k]};`
-				break
-			case "size":
-				break
-			default:
-				css += `${k}:${style[k]};`
-				break
+	if (isDense) {
+		if (!isBody) {
+			if (!style.size) style.size = 1
+			if (!style.type) style.type = "box"
 		}
-	})
+		Object.entries(style).forEach(([k,v]) => {
+			switch (k) {
+				case "design":
+					classlist.push(v)
+					break
+				case "type":
+					classlist.push(v + style.size)
+					break
+				case "centerChild":
+					break
+				case "border-radius":
+					css += `${k}:${v == "full" ? "100vw" : v};`
+					break
+				case "size":
+					break
+				default:
+					css += `${k}:${v};`
+					break
+			}
+		})
+	} else
+		Object.entries(style).forEach(([k,v])=>css+=`${k}:${v}`)
 
 	return { classes: classlist, styles: css }
 }
@@ -288,7 +293,5 @@ function parse(data) {
 	)}</html>`
 }
 
-export default {
-	parse,
-	parseElement,
-}
+export default parse
+export { parseElement as parseElement, parse as parse, useDense as useDense }

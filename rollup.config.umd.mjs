@@ -9,6 +9,7 @@ export default {
             file: './dist/parser.umd.js',
             format: 'umd',
             name: 'dense-parser',
+            exports: 'named',
             sourcemap: true
         }
     ]
