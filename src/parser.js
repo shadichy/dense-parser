@@ -63,7 +63,7 @@ const voidElements = [
 var isDense = false
 
 const isArray = (o) => Object.prototype.toString.call(o) === "[object Array]",
-	useDense = ()=>isDense=true
+	useDense = () => (isDense = true)
 
 function parseElement(content, _tag = "div") {
 	if (typeof content === "string")
@@ -168,7 +168,7 @@ function parseCss(style, isBody) {
 			if (!style.size) style.size = 1
 			if (!style.type) style.type = "box"
 		}
-		Object.entries(style).forEach(([k,v]) => {
+		Object.entries(style).forEach(([k, v]) => {
 			switch (k) {
 				case "design":
 					classlist.push(v)
@@ -188,8 +188,7 @@ function parseCss(style, isBody) {
 					break
 			}
 		})
-	} else
-		Object.entries(style).forEach(([k,v])=>css+=`${k}:${v}`)
+	} else Object.entries(style).forEach(([k, v]) => (css += `${k}:${v}`))
 
 	return { classes: classlist, styles: css }
 }
