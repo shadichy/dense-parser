@@ -8,7 +8,14 @@ export default {
         {
             file: './dist/parser.umd.js',
             format: 'umd',
-            name: 'dense-parser',
+            name: 'dense_parser',
+            exports: 'named',
+            sourcemap: true
+        },
+        {
+            file: './dist/parser.iife.js',
+            format: 'iife',
+            name: 'dense_parser',
             exports: 'named',
             sourcemap: true
         }

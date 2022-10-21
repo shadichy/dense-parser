@@ -65,30 +65,34 @@ var isDense = false
 const isArray = (o) => Object.prototype.toString.call(o) === "[object Array]",
 	useDense = () => (isDense = true)
 
-function parseElement(content, _tag = "div") {
+function parseElement(content) {
 	if (typeof content === "string")
 		try {
-			return emmet.default(content)
+			return emmet.default(content, { options: {
+				'output.indent': '',
+				'output.newline': ''
+			}})
 		} catch (e) {
 			return content
 		}
+
+	if (!content.tag)
+		content.tag = "div"
+
 	let htmlAtt = {},
 		child = "",
 		classlist = ""
 
-	const isVoid = voidElements.indexOf(_tag) !== -1
+	const isVoid = voidElements.indexOf(content.tag) !== -1
 
 	function subparse(k) {
 		switch (k) {
-			case "tag":
-				_tag = content[k]
-				break
 			case "panel":
-				if (!isVoid) child += parseElement(content[k], "nav")
+				if (!isVoid) child += parseElement({tag: "nav", ...content[k]})
 				break
 			case "header":
 			case "footer":
-				if (!isVoid) child += parseElement(content[k], k)
+				if (!isVoid) child += parseElement({tag: k, ...content[k]})
 				break
 			case "_":
 			case "content":
@@ -102,14 +106,15 @@ function parseElement(content, _tag = "div") {
 				}
 				break
 			case "style":
-				const { classes, styles } = parseCss(content[k], _tag == "body")
+				const { classes, styles } = parseCss(content[k], content.tag == "body")
 				classes.forEach((c) => (classlist += " " + c))
 				if (styles != "") htmlAtt[k] = styles
 				break
 			case "title":
 			case "desc":
-				if (isVoid) {
+				if (content.tag != "body")
 					htmlAtt["title"] = content[k]
+				if (isVoid) {
 					htmlAtt["alt"] = content[k]
 				}
 				break
@@ -121,15 +126,15 @@ function parseElement(content, _tag = "div") {
 			case "#":
 			case "comment":
 				child += `<!-- ${content[k]} -->`
+				break
 			case "stylesheet":
 			case "preview":
 			case "script":
 			case "keywords":
 			case "logo":
 			case "lang":
-				break
 			case "type":
-				if (_tag == "body") break
+				if (content.tag == "body") break
 			default:
 				htmlAtt[k] = content[k]
 				break
@@ -145,8 +150,8 @@ function parseElement(content, _tag = "div") {
 	let htmlAttStr = ""
 	Object.entries(htmlAtt).forEach(([k, v]) => (htmlAttStr += `${k}="${v}"`))
 
-	return `<${_tag}${htmlAttStr === "" ? "" : " " + htmlAttStr}${
-		isVoid ? "/>" : `>${child}</${_tag}>`
+	return `<${content.tag}${htmlAttStr === "" ? "" : " " + htmlAttStr}${
+		isVoid ? "/>" : `>${child}</${content.tag}>`
 	}`
 }
 
@@ -155,7 +160,13 @@ function parseCss(style, isBody) {
 		try {
 			return {
 				classes: [],
-				styles: emmet.default(style, { type: "stylesheet" }),
+				styles: emmet.default(style, { 
+					type: "stylesheet", 
+					options: {
+						'output.indent': '',
+						'output.newline': ''
+					}
+				}),
 			}
 		} catch (e) {
 			return { classes: [], styles: style }
@@ -188,7 +199,7 @@ function parseCss(style, isBody) {
 					break
 			}
 		})
-	} else Object.entries(style).forEach(([k, v]) => (css += `${k}:${v}`))
+	} else Object.entries(style).forEach(([k, v]) => (css += `${k}:${v};`))
 
 	return { classes: classlist, styles: css }
 }
@@ -287,7 +298,7 @@ function parse(data) {
 	}
 
 	return `<!DOCTYPE html><html lang="${lang}"><head><meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible"content="IE=edge"/><meta name="viewport"content="width=device-width,initial-scale=1.0"/><title>${title}</title>${logo}${keywords}<meta property="og:title"content="${title}"/><meta property="og:type"content="${type}"/>${desc}${preview}${style}${script}</head>${parseElement(
-		data,
+		{tag: "body", ...data},
 		"body"
 	)}</html>`
 }

@@ -20,7 +20,10 @@
         },
         ".lmao {display: block}"
     ],
-    "script": "/path/to/script.js",
+    "script": {
+        "file1": "/path/to/script.js",
+        "file2": "../dist/parser.umd.js"
+    },
     "_": {
         "panel": {
             "id": "nav",

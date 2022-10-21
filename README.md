@@ -14,6 +14,12 @@ yarn add dense-parser
 pnpm i dense-parser
 ```
 
+then
+
+```js
+const dense_parser = require("dense-parser") // Of course, you can use methods directly for short
+```
+
 ### Browser
 
 Add this to your html source
@@ -22,13 +28,17 @@ Add this to your html source
 <script language="javascript" type="text/javascript" src="https://github.com/shadichy/dense-parser/raw/master/dist/parser.umd.js"></script>
 ```
 
+or
+
+```html
+<script language="javascript" type="text/javascript" src="https://github.com/shadichy/dense-parser/raw/master/dist/parser.iife.js"></script>
+```
+
 ## Usage
 
 To parse an object that represents a document, just pass it to `dense-parser`'s `parse` function
 
 ```js
-const { parse } = require("dense-parser")
-
 const htmlObject = {
     title: "This is title",
     logo: "/path/to/your/favicon.png",
@@ -46,7 +56,7 @@ const htmlObject = {
     }
 }
 
-console.log(parse(htmlObject)) 
+console.log(dense_parser.parse(htmlObject)) 
 ```
 
 Output:
@@ -60,8 +70,6 @@ Output:
 To parse an object that represents a single html element, pass it to `parseElement` function
 
 ```js
-const { parseElement } = require("dense-parser")
-
 const elementObject = {
     tag: "span",
     id: "someRandomTag",
@@ -75,20 +83,20 @@ const elementObject = {
     title: "get this when your hover"
 }
 
-console.log(parseElement(elementObject))
+console.log(dense_parser.parseElement(elementObject))
 ```
 
 Output:
 
 ```html
-<span id="someRandomTag"style="display:block;border-radius:10px;width:100%;"class="dense"><div><p>This is the span content</p></div></span>
+'<span tag="span"id="someRandomTag"style="display:blockborder-radius:10pxwidth:100%"title="get this when your hover"class="dense"><div><p>This is the span content</p></div></span>'
 ```
 
 (_A html beautify library is recommended :)_)
 
 ### Syntax
 
-#### Element syntax
+#### Element snippets
 
 | Property          | Type                  | Desciption
 | ------------- | ------------- | ----------------------------------------------------------------- |
@@ -100,7 +108,7 @@ Output:
 
 And all other HTML element attributes inherited
 
-#### Document syntax
+#### Document snippets
 
 Inherited from Element syntax with some additions
 
@@ -116,7 +124,7 @@ Inherited from Element syntax with some additions
 | `stylesheet`      | String, Array, Object | Define document stylesheet (Object) or link to external CSS paths
 | `script`          | String, Array, Object | Create `<script>` tag that contains JavaScript code (String) or link to external JavaScript paths ()
 
-### For Dense users
+### For Dense-eco users
 
 Execute `useDense()` after import
 
