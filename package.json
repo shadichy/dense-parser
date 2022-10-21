@@ -1,6 +1,6 @@
 {
   "name": "dense-parser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Dense.js JSON-HTML parser script",
   "main": "./dist/parser.cjs.js",
   "module": "./dist/parser.es.js",
