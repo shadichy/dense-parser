@@ -68,16 +68,17 @@ const isArray = (o) => Object.prototype.toString.call(o) === "[object Array]",
 function parseElement(content) {
 	if (typeof content === "string")
 		try {
-			return emmet.default(content, { options: {
-				'output.indent': '',
-				'output.newline': ''
-			}})
+			return emmet.default(content, {
+				options: {
+					"output.indent": "",
+					"output.newline": "",
+				},
+			})
 		} catch (e) {
 			return content
 		}
 
-	if (!content.tag)
-		content.tag = "div"
+	if (!content.tag) content.tag = "div"
 
 	let htmlAtt = {},
 		child = "",
@@ -88,11 +89,11 @@ function parseElement(content) {
 	function subparse(k) {
 		switch (k) {
 			case "panel":
-				if (!isVoid) child += parseElement({tag: "nav", ...content[k]})
+				if (!isVoid) child += parseElement({ tag: "nav", ...content[k] })
 				break
 			case "header":
 			case "footer":
-				if (!isVoid) child += parseElement({tag: k, ...content[k]})
+				if (!isVoid) child += parseElement({ tag: k, ...content[k] })
 				break
 			case "_":
 			case "content":
@@ -112,8 +113,7 @@ function parseElement(content) {
 				break
 			case "title":
 			case "desc":
-				if (content.tag != "body")
-					htmlAtt["title"] = content[k]
+				if (content.tag != "body") htmlAtt["title"] = content[k]
 				if (isVoid) {
 					htmlAtt["alt"] = content[k]
 				}
@@ -160,12 +160,12 @@ function parseCss(style, isBody) {
 		try {
 			return {
 				classes: [],
-				styles: emmet.default(style, { 
-					type: "stylesheet", 
+				styles: emmet.default(style, {
+					type: "stylesheet",
 					options: {
-						'output.indent': '',
-						'output.newline': ''
-					}
+						"output.indent": "",
+						"output.newline": "",
+					},
 				}),
 			}
 		} catch (e) {
@@ -298,7 +298,7 @@ function parse(data) {
 	}
 
 	return `<!DOCTYPE html><html lang="${lang}"><head><meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible"content="IE=edge"/><meta name="viewport"content="width=device-width,initial-scale=1.0"/><title>${title}</title>${logo}${keywords}<meta property="og:title"content="${title}"/><meta property="og:type"content="${type}"/>${desc}${preview}${style}${script}</head>${parseElement(
-		{tag: "body", ...data},
+		{ tag: "body", ...data },
 		"body"
 	)}</html>`
 }

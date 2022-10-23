@@ -89,7 +89,7 @@ console.log(dense_parser.parseElement(elementObject))
 Output:
 
 ```html
-'<span tag="span"id="someRandomTag"style="display:blockborder-radius:10pxwidth:100%"title="get this when your hover"class="dense"><div><p>This is the span content</p></div></span>'
+'<span tag="span"id="someRandomTag"style="display:block;border-radius:10px;width:100%"title="get this when your hover"class="dense"><div><p>This is the span content</p></div></span>'
 ```
 
 (_A html beautify library is recommended :)_)
